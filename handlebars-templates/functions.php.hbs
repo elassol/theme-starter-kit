@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package {{name}}
+ * @package {{safeName}}
  */
 
 if ( ! function_exists( '{{safeName}}_setup' ) ) :
@@ -19,10 +19,10 @@ function {{safeName}}_setup() {
     /*
      * Make theme available for translation.
      * Translations can be filed in the /languages/ directory.
-     * If you're building a theme based on lassodesigns, use a find and replace
-     * to change 'lassodesigns' to the name of your theme in all the template files.
+     * If you're building a theme based on {{safeName}}, use a find and replace
+     * to change '{{safeName}}' to the name of your theme in all the template files.
      */
-    load_theme_textdomain( 'lassodesigns', get_template_directory() . '/languages' );
+    load_theme_textdomain( '{{safeName}}', get_template_directory() . '/languages' );
 
     // Add default posts and comments RSS feed links to head.
     add_theme_support( 'automatic-feed-links' );
@@ -44,7 +44,7 @@ function {{safeName}}_setup() {
 
     // This theme uses wp_nav_menu() in one location.
     register_nav_menus( array(
-        'primary' => esc_html__( 'Primary', 'lassodesigns' ),
+        'primary' => esc_html__( 'Primary', '{{safeName}}' ),
     ) );
 
     /*
@@ -72,13 +72,13 @@ function {{safeName}}_setup() {
     ) );
 
     // Set up the WordPress core custom background feature.
-    add_theme_support( 'custom-background', apply_filters( 'lassodesigns_custom_background_args', array(
+    add_theme_support( 'custom-background', apply_filters( '{{safeName}}_custom_background_args', array(
         'default-color' => 'ffffff',
         'default-image' => '',
     ) ) );
 }
 endif;
-add_action( 'after_setup_theme', 'lassodesigns_setup' );
+add_action( 'after_setup_theme', '{{safeName}}_setup' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -87,21 +87,21 @@ add_action( 'after_setup_theme', 'lassodesigns_setup' );
  *
  * @global int $content_width
  */
-function lassodesigns_content_width() {
-    $GLOBALS['content_width'] = apply_filters( 'lassodesigns_content_width', 640 );
+function {{safeName}}_content_width() {
+    $GLOBALS['content_width'] = apply_filters( '{{safeName}}_content_width', 640 );
 }
-add_action( 'after_setup_theme', 'lassodesigns_content_width', 0 );
+add_action( 'after_setup_theme', '{{safeName}}_content_width', 0 );
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function lassodesigns_widgets_init() {
+function {{safeName}}_widgets_init() {
     register_sidebar( array(
-        'name'          => esc_html__( 'Sidebar', 'lassodesigns' ),
+        'name'          => esc_html__( 'Sidebar', '{{safeName}}' ),
         'id'            => 'sidebar-1',
-        'description'   => esc_html__( 'Add widgets here.', 'lassodesigns' ),
+        'description'   => esc_html__( 'Add widgets here.', '{{safeName}}' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
         'before_title'  => '<h2 class="widget-title">',
@@ -137,13 +137,13 @@ function lassodesigns_widgets_init() {
 
 
 }
-add_action( 'widgets_init', 'lassodesigns_widgets_init' );
+add_action( 'widgets_init', '{{safeName}}_widgets_init' );
 
 /**
  * Enqueue scripts and styles.
  */
-function lassodesigns_scripts() {
-    wp_enqueue_style( 'lassodesigns-style', get_stylesheet_uri() );
+function {{safeName}}_scripts() {
+    wp_enqueue_style( '{{safeName}}-style', get_stylesheet_uri() );
 
     wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array('jquery'),'',true );
 
@@ -158,7 +158,7 @@ function lassodesigns_scripts() {
         wp_enqueue_script('jquery');
     }
 }
-add_action( 'wp_enqueue_scripts', 'lassodesigns_scripts' );
+add_action( 'wp_enqueue_scripts', '{{safeName}}_scripts' );
 
 /**
  * Implement the Custom Header feature.
@@ -189,23 +189,23 @@ require get_template_directory() . '/inc/jetpack.php';
 /**
  * Logo uploader
  */
-function lassodesigns_customize_logo( $wp_customize ) {
-    $wp_customize->add_section( 'lassodesigns_logo_section' , array(
-    'title'       => __( 'Logo', 'lassodesigns' ),
+function {{safeName}}_customize_logo( $wp_customize ) {
+    $wp_customize->add_section( '{{safeName}}_logo_section' , array(
+    'title'       => __( 'Logo', '{{safeName}}' ),
     'priority'    => 30,
     'description' => 'Upload a logo to replace the default site name and description in the header',
     ) );
 
-    $wp_customize->add_setting( 'lassodesigns_logo' ); // Add setting for logo uploader
+    $wp_customize->add_setting( '{{safeName}}_logo' ); // Add setting for logo uploader
          
     // Add control for logo uploader (actual uploader)
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'lassodesigns_logo', array(
-        'label'   => __( 'Logo', 'lassodesigns' ),
-        'section'  => 'lassodesigns_logo_section',
-        'settings' => 'lassodesigns_logo',
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, '{{safeName}}_logo', array(
+        'label'   => __( 'Logo', '{{safeName}}' ),
+        'section'  => '{{safeName}}_logo_section',
+        'settings' => '{{safeName}}_logo',
     ) ) );
 }
-add_action( 'customize_register', 'lassodesigns_customize_logo' );
+add_action( 'customize_register', '{{safeName}}_customize_logo' );
 
 
 /**
@@ -230,30 +230,30 @@ add_filter( 'http_request_args', 'lassodesign_hidden_theme', 5, 2 );
 * Creating a function to create our CPT
 */
 
-function lassodesigns_custom_post_type() {
+function {{safeName}}_custom_post_type() {
 
 // Set UI labels for Custom Post Type
     $labels = array(
-        'name'                => _x( 'Portfolio', 'Post Type General Name', 'lassodesigns' ),
-        'singular_name'       => _x( 'Work', 'Post Type Singular Name', 'lassodesigns' ),
-        'menu_name'           => __( 'Portfolio', 'lassodesigns' ),
-        'parent_item_colon'   => __( 'Parent Work', 'lassodesigns' ),
-        'all_items'           => __( 'All Works', 'lassodesigns' ),
-        'view_item'           => __( 'View Work', 'lassodesigns' ),
-        'add_new_item'        => __( 'Add New Work', 'lassodesigns' ),
-        'add_new'             => __( 'Add New', 'lassodesigns' ),
-        'edit_item'           => __( 'Edit Work', 'lassodesigns' ),
-        'update_item'         => __( 'Update Work', 'lassodesigns' ),
-        'search_items'        => __( 'Search Work', 'lassodesigns' ),
-        'not_found'           => __( 'Not Found', 'lassodesigns' ),
-        'not_found_in_trash'  => __( 'Not found in Trash', 'lassodesigns' ),
+        'name'                => _x( 'Portfolio', 'Post Type General Name', '{{safeName}}' ),
+        'singular_name'       => _x( 'Work', 'Post Type Singular Name', '{{safeName}}' ),
+        'menu_name'           => __( 'Portfolio', '{{safeName}}' ),
+        'parent_item_colon'   => __( 'Parent Work', '{{safeName}}' ),
+        'all_items'           => __( 'All Works', '{{safeName}}' ),
+        'view_item'           => __( 'View Work', '{{safeName}}' ),
+        'add_new_item'        => __( 'Add New Work', '{{safeName}}' ),
+        'add_new'             => __( 'Add New', '{{safeName}}' ),
+        'edit_item'           => __( 'Edit Work', '{{safeName}}' ),
+        'update_item'         => __( 'Update Work', '{{safeName}}' ),
+        'search_items'        => __( 'Search Work', '{{safeName}}' ),
+        'not_found'           => __( 'Not Found', '{{safeName}}' ),
+        'not_found_in_trash'  => __( 'Not found in Trash', '{{safeName}}' ),
     );
     
 // Set other options for Custom Post Type
     
     $args = array(
-        'label'               => __( 'portfolio', 'lassodesigns' ),
-        'description'         => __( 'Work pieces portfolio', 'lassodesigns' ),
+        'label'               => __( 'portfolio', '{{safeName}}' ),
+        'description'         => __( 'Work pieces portfolio', '{{safeName}}' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
         'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
@@ -287,6 +287,6 @@ function lassodesigns_custom_post_type() {
 * unnecessarily executed. 
 */
 
-add_action( 'init', 'lassodesigns_custom_post_type', 0 );
+add_action( 'init', '{{safeName}}_custom_post_type', 0 );
 
 
