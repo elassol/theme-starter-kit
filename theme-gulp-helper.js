@@ -112,6 +112,8 @@ var convertNameToJavascriptSafeString = function(name) {
 }
 
 var camelCase = function(string) {
+    // REMOVE WHITE SPACE
+    // return string.toLowerCase().replace(/\s+/g, '', function(match, group1) 
     return string.toLowerCase().replace(/-(.)/g, function(match, group1) {
         return group1.toUpperCase();
     });
